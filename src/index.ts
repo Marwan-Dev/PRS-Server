@@ -2,6 +2,7 @@ import express, { Application, Request, Response } from 'express';
 import morgan from 'morgan';
 import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
+import errorMiddleware from './middleware/error.middleware';
 
 const PORT = 3000;
 // create server instance
@@ -28,6 +29,7 @@ app.use(
 
 // add routing for / path
 app.get('/', (req: Request, res: Response) => {
+  throw new Error('Error exists');
   res.json({
     message: 'hello World',
   });
@@ -39,6 +41,15 @@ app.post('/', (req: Request, res: Response) => {
   res.json({
     message: 'hello World from post request',
     data: req.body,
+  });
+});
+
+app.use(errorMiddleware);
+
+app.use((_req: Request, res: Response) => {
+  res.status(404).json({
+    message:
+      'Ohhh you are lost, read the API documentation to find your way back',
   });
 });
 
