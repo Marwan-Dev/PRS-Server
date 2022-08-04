@@ -4,6 +4,7 @@ import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
 import errorMiddleware from './middleware/error.middleware';
 import config from './config';
+import routes from './routes';
 
 const PORT = config.port || 3000;
 // create server instance
@@ -27,6 +28,8 @@ app.use(
     message: 'Too many requests, please try again after 15 minutes',
   })
 );
+
+app.use('/api', routes);
 
 // add routing for / path
 app.get('/', (req: Request, res: Response) => {
