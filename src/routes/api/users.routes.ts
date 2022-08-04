@@ -1,10 +1,14 @@
 import { Router } from 'express';
 import * as controller from '../../controllers/user.controller';
+import authenticationMiddleware from '../../middleware/authenticate.middleware';
 
 const routes = Router();
 
 // api /users
-routes.route('/').get(controller.getAllUsers).post(controller.create);
+routes
+  .route('/')
+  .get(authenticationMiddleware, controller.getAllUsers)
+  .post(controller.create);
 routes
   .route('/:id')
   .get(controller.getUser)
