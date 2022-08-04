@@ -33,7 +33,6 @@ app.use('/api', routes);
 
 // add routing for / path
 app.get('/', (req: Request, res: Response) => {
-  throw new Error('Error exists');
   res.json({
     message: 'hello World',
   });

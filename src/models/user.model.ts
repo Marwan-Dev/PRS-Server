@@ -18,7 +18,7 @@ class UserModel {
       // run query
       const result = await connection.query(sql, [
         u.email,
-        u.username,
+        u.user_name,
         u.first_name,
         u.last_name,
         hashPassword(u.password),
@@ -29,7 +29,7 @@ class UserModel {
       return result.rows[0];
     } catch (error) {
       throw new Error(
-        `Unable to create (${u.username}): ${(error as Error).message}`
+        `Unable to create (${u.user_name}): ${(error as Error).message}`
       );
     }
   }
@@ -67,7 +67,7 @@ class UserModel {
         'UPDATE users SET email=$1, user_name=$2, first_name=$3, last_name=$4, password=$5 WHERE id=$6 RETURNING id, email, user_name, first_name, last_name';
       const result = await connection.query(sql, [
         u.email,
-        u.username,
+        u.user_name,
         u.first_name,
         u.last_name,
         hashPassword(u.password),
@@ -77,7 +77,7 @@ class UserModel {
       return result.rows[0];
     } catch (error) {
       throw new Error(
-        `Could not update user ${u.username}, ${(error as Error).message}`
+        `Could not update user ${u.user_name}, ${(error as Error).message}`
       );
     }
   }
